@@ -1,3 +1,4 @@
 class Neighborhood < ActiveRecord::Base
-    # add associatons!
-  end
+  has_many :bathrooms
+  has_many :reviews, through: :bathrooms
+end

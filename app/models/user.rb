@@ -1,3 +1,4 @@
 class User < ActiveRecord::Base
-    # add associatons!
-    end
+  has_many :reviews
+  has_many :bathrooms, through: :reviews
+end
