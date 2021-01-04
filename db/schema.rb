@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_04_190516) do
+ActiveRecord::Schema.define(version: 2021_01_04_212301) do
 
   create_table "bathrooms", force: :cascade do |t|
     t.string "name"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 2021_01_04_190516) do
     t.integer "wait_time"
     t.boolean "handicap_accessible"
     t.boolean "baby_changing_station"
+    t.integer "user_id"
+    t.integer "bathroom_id"
   end
 
   create_table "users", force: :cascade do |t|
