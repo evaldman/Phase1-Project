@@ -35,6 +35,6 @@ class Bathroom < ActiveRecord::Base
     Bathroom.all.sort_by{|bathroom| bathroom.reviews.length}.last(2)
   end 
 
-    #create new review, which creates new bathroom as well
+    # create new review, which creates new bathroom as well
 
 end

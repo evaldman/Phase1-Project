@@ -11,7 +11,9 @@ class Neighborhood < ActiveRecord::Base
   end
 
   def low_security
-    self.all_bathrooms.select{|level| Review.find_by(level.security_level) == "low"}
+    binding.pry
+    low = self.all_bathrooms.select{|level| level.reviews}
+    low.security_level == "low"
   end
 
   def best_flush
