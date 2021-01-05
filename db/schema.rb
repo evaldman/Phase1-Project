@@ -16,10 +16,14 @@ ActiveRecord::Schema.define(version: 2021_01_04_212301) do
     t.string "name"
     t.string "address"
     t.integer "neighborhood_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "neighborhoods", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -29,12 +33,16 @@ ActiveRecord::Schema.define(version: 2021_01_04_212301) do
     t.integer "wait_time"
     t.boolean "handicap_accessible"
     t.boolean "baby_changing_station"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "user_id"
     t.integer "bathroom_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

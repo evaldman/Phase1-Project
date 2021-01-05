@@ -7,6 +7,7 @@ class CreateReviews < ActiveRecord::Migration[5.2]
       t.integer :wait_time
       t.boolean :handicap_accessible
       t.boolean :baby_changing_station
+      t.timestamps
     end
   end
 end
