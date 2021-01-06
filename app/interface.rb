@@ -41,16 +41,43 @@ class Interface
     def bathroom_helper
         system 'clear'  
         n_bathroom = @chosen_hood_id.all_bathrooms
-        prompt.select("Please select a bathroom", n_bathroom)
+        selected_bathroom = prompt.select("Please select a bathroom", n_bathroom)
+        # binding.pry
+        choices = {YES: 1, NO: 2}
+        review_q = prompt.select("Choose your destiny?") do |menu|
+            menu.choice "yes", 1
+            menu.choice "no", 2
+        end
+        br_review = Review.all.select{|review| review.bathroom == selected_bathroom}
+       
+        if review_q == 1
+            print br_review
+        else review_q == 2
+          
+             puts "Enjoy your personal time"
+        
+        end
+       
+        puts "Please come back and leave a review"
+        sleep(1)
+        #exit
     end
 
     def review_helper
+        system 'clear'
+        @user.reload
+        hood_bathroom = @chosen_hood_id.all_bathrooms
+        chosen_bathroom = prompt.select("Please select a bathroom", hood_bathroom)
+
         cleanliness = prompt.ask("How clean was this bathroom?").to_i
         flush_factor = prompt.ask("Flush type? jet engine, mild current, lazy river")
         security_level = prompt.ask("is there security? low, medium, high")
         wait_time = prompt.ask("How many minutes did you wait?").to_i
         handicap_accessible = prompt.yes?("Was there handicap access?")
         baby_changing_station = prompt.yes?("Was there a baby changing station?")
+        # binding.pry
+        Review.create(cleanliness: cleanliness, flush_factor: flush_factor, security_level: security_level, handicap_accessible: handicap_accessible, baby_changing_station: baby_changing_station, user_id: @user.id, bathroom_id: chosen_bathroom.id)
+        puts "Thanks for your review #{@user.name}, please come back soon!"
     end
 
 end
