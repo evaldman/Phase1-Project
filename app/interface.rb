@@ -23,7 +23,7 @@ class Interface
         puts "Welcome #{user.name}, please select your neighborhood"
         sleep(2)
         hoods = Neighborhood.all_names
-        chosen_hood_id = prompt.select("Which neighborhood are you in?, hoods")
+        chosen_hood_id = prompt.select("Which neighborhood are you in?", hoods)
         what_to_do_menu
         # neighborhood_menu
     end
