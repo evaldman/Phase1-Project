@@ -3,6 +3,14 @@ class Bathroom < ActiveRecord::Base
   has_many :users, through: :reviews
   belongs_to :neighborhood
 
+  def to_s
+    self.address
+  end
+
+  def self.all_names
+    self.all.map{|bathroom| {bathroom.address => bathroom.id}}
+  end
+
   def all_reviews
     Review.all.select{|review| review.bathroom == self}
   end

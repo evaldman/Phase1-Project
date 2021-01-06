@@ -6,10 +6,9 @@ class Neighborhood < ActiveRecord::Base
     self.name
   end
 
-  def self.all_names
-    self.all.map{|hood| {hood.name => hood.id}}
-  end
-
+  # def self.all_names
+  #   self.all.map{|hood| {hood.name => hood.id}}
+  # end
   
   def all_bathrooms
     Bathroom.all.select{|bathroom| bathroom.neighborhood == self}
