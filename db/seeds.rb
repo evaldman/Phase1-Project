@@ -52,10 +52,10 @@ review2 = Review.create(cleanliness: 3, flush_factor: "lazy river", security_lev
 review3 = Review.create(cleanliness: 2, flush_factor: "mild current", security_level: "medium", wait_time: 2, handicap_accessible: 1, baby_changing_station: 1, user_id: eric.id, bathroom_id: bryant_park.id)
 review4 = Review.create(cleanliness: 10, flush_factor: "jet engine", security_level: "high", wait_time: 4, handicap_accessible: 1, baby_changing_station: 1, user_id: julia.id, bathroom_id: equinox.id)
 review5 = Review.create(cleanliness: 8, flush_factor: "mid current", security_level: "low", wait_time: 15, handicap_accessible: 0, baby_changing_station: 0, user_id: kim.id, bathroom_id: sallys.id)
-review6 = Review.create(cleanliness: 2, flush_factor: "lazy river", security_level: "low", wait_time: 9, handicap_accessible: 0, baby_changing_station: 1, user_id: timmy.id, bathroom_id: bryant_park.id)
+review6 = Review.create(cleanliness: 2, flush_factor: "lazy river", security_level: "low", wait_time: 9, handicap_accessible: 0, baby_changing_station: 1, user_id: timmy.id, bathroom_id: law_firm.id)
 review7 = Review.create(cleanliness: 1, flush_factor: "mild current", security_level: "high", wait_time: 7, handicap_accessible: 0, baby_changing_station: 1, user_id: whitney.id, bathroom_id: sallys.id)
 review8 = Review.create(cleanliness: 10, flush_factor: "mild current", security_level: "high", wait_time: 7, handicap_accessible: 0, baby_changing_station: 1, user_id: whitney.id, bathroom_id: starbucks.id)
-review9 = Review.create(cleanliness: 1, flush_factor: "jet engine", security_level: "high", wait_time: 7, handicap_accessible: 0, baby_changing_station: 1, user_id: whitney.id, bathroom_id: bryant_park.id)
+review9 = Review.create(cleanliness: 1, flush_factor: "jet engine", security_level: "high", wait_time: 7, handicap_accessible: 0, baby_changing_station: 1, user_id: whitney.id, bathroom_id: law_firm.id)
 review10 = Review.create(cleanliness: 1, flush_factor: "mild current", security_level: "high", wait_time: 7, handicap_accessible: 0, baby_changing_station: 1, user_id: whitney.id, bathroom_id: sallys.id)
 
 puts "🔥 🔥 🔥 🔥 "

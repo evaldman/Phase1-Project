@@ -12,8 +12,14 @@ end
 
 desc "start our app"
 task :start do
-  app = iToilet.new
+  app = IToilet.new
   app.run
+end
+
+desc "start our app2"
+task :start do
+  interface = Interface.new
+  interface.welcome
 end
 
 namespace :remind_me_about do

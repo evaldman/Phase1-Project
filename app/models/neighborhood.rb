@@ -7,32 +7,31 @@ class Neighborhood < ActiveRecord::Base
   end
 
   def most_popular_in_neighborhood
-    self.all_bathrooms.sort_by{|bathroom| bathroom.reviews.length}.last(2)
+    self.reviews.sort_by{|review| review.bathroom_id}
   end
 
   def low_security
-    binding.pry
-    low = self.all_bathrooms.select{|level| level.reviews}
-    low.security_level == "low"
+    self.reviews.select{|level| level.security_level == "low"}
+    
   end
 
   def best_flush
-    self.all_bathrooms.select{|flush| flush.flush_factor == "jet engine"}
+    self.reviews.select{|flush| flush.flush_factor == "jet engine"}
   end
   
   def short_wait
-    self.all_bathrooms.select{|wait| wait.wait_time < 6}
+    self.reviews.select{|wait| wait.wait_time < 6}
   end
 
   def cleanest
-    self.all_bathrooms.select{|clean| clean.cleanliness > 8}
+    self.reviews.select{|clean| clean.cleanliness > 8}
   end
 
   def handicap_access
-    self.all_bathrooms.select{|access| access.handicap_accessible == true}
+    self.reviews.select{|access| access.handicap_accessible == true}
   end
 
   def baby_station
-    self.all_bathrooms.select{|baby| baby.baby_changing_station == true}
+    self.reviews.select{|baby| baby.baby_changing_station == true}
   end
 end
