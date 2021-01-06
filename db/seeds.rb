@@ -12,14 +12,14 @@ Review.reset_pk_sequence
 #users
 puts "creating users"
 
-melissa = User.create(name: "Melissa")
-billy = User.create(name: "Billy")
-eric = User.create(name: "Eric")
-timmy = User.create(name: "Timmy")
-whitney = User.create(name: "Whitney")
-cameron = User.create(name: "Cameron")
-kim = User.create(name: "Kim")
-julia = User.create(name: "Julia")
+melissa = User.create(name: "Melissa", password: "melissa")
+billy = User.create(name: "Billy", password: "billy")
+eric = User.create(name: "Eric", password: "eric")
+timmy = User.create(name: "Timmy", password: "timmy")
+whitney = User.create(name: "Whitney", password: "whitney")
+cameron = User.create(name: "Cameron", password: "cameron")
+kim = User.create(name: "Kim", password: "kim")
+julia = User.create(name: "Julia", password: "julia")
 
 #neighborhoods
 puts "creating neighborhoods"

@@ -1,12 +1,39 @@
 class Interface
 
     attr_reader :prompt
+    attr_accessor :user, :bathroom
 
     def initialize
         @prompt = TTY::Prompt.new
     end
 
     def welcome
+        prompt.select("🚽 Welcome to iToilet 🚽") do |menu|
+            menu.choice "Login", -> { login }
+            menu.choice "Sign Up", -> { sign_up }
+            menu.choice "Delete Account", -> { delete_account }
+        end
+
+    end
+
+    def login
+        name = prompt.ask("Enter Name")
+        password = prompt.mask("Enter Password")
+        user = User.find_by(name: name, password: password)
+        puts "Welcome #{user.name}, please select your neighborhood"
+        sleep(2)
+        hoods = Neighborhood.all_names
+        chosen_hood_id = prompt.select("Which neighborhood are you in?, hoods")
+        what_to_do_menu
+        # neighborhood_menu
+    end
+
+    # def neighborhood_menu
+    #     hoods = Neighborhood.all_names
+    #     chosen_hood_id = prompt.select("Which neighborhood are you in?, hoods")
+    #     what_to_do_menu
+    # end
+    def what_to_do_menu
         prompt.select("What would you like to do?") do |menu|
             menu.choice "Find a bathroom", -> { bathroom_helper}
             menu.choice "Leave a review", -> { review_helper }

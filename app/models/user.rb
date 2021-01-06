@@ -6,5 +6,5 @@ class User < ActiveRecord::Base
     User.create(name: name)
   end
   
-  end
+  
 end

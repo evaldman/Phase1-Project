@@ -4,9 +4,9 @@ class IToilet
   attr_accessor :user, :neighborhood
 
   def run
-    greet
+    # greet
     #login_or_signup
-    puts "select a neighbborhood to get started"
+    #puts "select a neighbborhood to get started"
     #Neighborhood.find_by(name: name)
     #binding.pry
    
@@ -15,9 +15,9 @@ class IToilet
 
   private
 
-  def greet
-    puts "Welcome to iToilet, is it number 1 or number 2?"
-  end
+  # def greet
+  #   #puts "Welcome to iToilet, is it number 1 or number 2?"
+  # end
 
   # def login_or_signup
   #   username = ("enter your name to log in/sign up:")
