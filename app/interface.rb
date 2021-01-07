@@ -19,14 +19,35 @@ class Interface
     def login
         name = prompt.ask("Enter Name")
         password = prompt.mask("Enter Password")
+        unless User.find_by(name: name, password: password)
+            puts "Sorry name or password does not match".colorize(:red)
+            name = prompt.ask("Enter Name")
+            password = prompt.mask("Enter Password")
+        end
         @user = User.find_by(name: name, password: password)
-        puts "Welcome #{@user.name}, please select your neighborhood"
+        puts "Welcome back #{@user.name}, please select your neighborhood".colorize(:yellow)
         sleep(2)
         hoods = Neighborhood.all
         @chosen_hood_id = prompt.select("Which neighborhood are you in?", hoods)
         # puts "Welcome to #{@chosen_hood_id}"
         what_to_do_menu
     end
+    def sign_up
+        name = prompt.ask("Please select a user name")
+        while User.find_by(name: name)
+            puts "Sorry, this name is already taken".colorize(:red)
+            puts "Please try again".colorize(:blue)
+            name = prompt.ask("Please select a user name")
+        end
+        password = prompt.mask("Please select a password")
+        @user = User.create(name: name, password: password)
+        puts "Welcome #{@user.name}, you won't be disappointed!"
+        sleep(2)
+        hoods = Neighborhood.all
+        @chosen_hood_id = prompt.select("Which neighborhood are you in?", hoods)
+        what_to_do_menu
+    end
+
     def what_to_do_menu
         system 'clear'
         @user.reload
@@ -35,7 +56,6 @@ class Interface
             menu.choice "Find a bathroom", -> { bathroom_helper}
             menu.choice "Leave a review", -> { review_helper }
         end
-            
     end
 
     def bathroom_helper
@@ -43,21 +63,19 @@ class Interface
         n_bathroom = @chosen_hood_id.all_bathrooms
         selected_bathroom = prompt.select("Please select a bathroom", n_bathroom)
         # binding.pry
-        choices = {YES: 1, NO: 2}
-        review_q = prompt.select("Choose your destiny?") do |menu|
+
+        review_q = prompt.select("Would you like to see a review?") do |menu|
             menu.choice "yes", 1
             menu.choice "no", 2
         end
         br_review = Review.all.select{|review| review.bathroom == selected_bathroom}
        
         if review_q == 1
-            print br_review
+            pp br_review
         else review_q == 2
-          
-             puts "Enjoy your personal time"
-        
+            puts "Enjoy your personal time"
         end
-       
+        sleep(2)
         puts "Please come back and leave a review"
         sleep(1)
         #exit
@@ -68,7 +86,6 @@ class Interface
         @user.reload
         hood_bathroom = @chosen_hood_id.all_bathrooms
         chosen_bathroom = prompt.select("Please select a bathroom", hood_bathroom)
-
         cleanliness = prompt.ask("How clean was this bathroom?").to_i
         flush_factor = prompt.ask("Flush type? jet engine, mild current, lazy river")
         security_level = prompt.ask("is there security? low, medium, high")
