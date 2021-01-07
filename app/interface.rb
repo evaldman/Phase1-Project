@@ -11,7 +11,7 @@ class Interface
         prompt.select("🚽 Welcome to iToilet 🚽") do |menu|
             menu.choice "Login", -> { login }
             menu.choice "Sign Up", -> { sign_up }
-            menu.choice "Delete Account", -> { delete_account }
+            
         end
 
     end
@@ -32,6 +32,7 @@ class Interface
         # puts "Welcome to #{@chosen_hood_id}"
         what_to_do_menu
     end
+
     def sign_up
         name = prompt.ask("Please select a user name")
         while User.find_by(name: name)
@@ -53,15 +54,22 @@ class Interface
         @user.reload
         sleep(1)
         prompt.select("What would you like to do?") do |menu|
-            menu.choice "Find a bathroom", -> { bathroom_helper}
-            menu.choice "Leave a review", -> { review_helper }
+            menu.choice "Find a Bathroom", -> { bathroom_helper}
+            menu.choice "Leave a Review", -> { review_helper }
+            menu.choice "Delete a Review", -> { delete_review_helper }
+            menu.choice "Update Review", -> { update_review_helper }
+            menu.choice "Delete Account", -> { delete_account }
+            menu.choice "Select a Different Neighborhood", -> { neighborhood_helper }
+            menu.choice "Exit", -> { exit_helper }
+
+            
         end
     end
 
     def bathroom_helper
         system 'clear'  
-        n_bathroom = @chosen_hood_id.all_bathrooms
-        selected_bathroom = prompt.select("Please select a bathroom", n_bathroom)
+        hood_bathroom = @chosen_hood_id.all_bathrooms
+        selected_bathroom = prompt.select("Please select a bathroom", hood_bathroom)
         # binding.pry
 
         review_q = prompt.select("Would you like to see a review?") do |menu|
@@ -83,9 +91,9 @@ class Interface
 
     def review_helper
         system 'clear'
-        @user.reload
+        # @user.reload
         hood_bathroom = @chosen_hood_id.all_bathrooms
-        chosen_bathroom = prompt.select("Please select a bathroom", hood_bathroom)
+        selected_bathroom = prompt.select("Please select a bathroom", hood_bathroom)
         cleanliness = prompt.ask("How clean was this bathroom?").to_i
         flush_factor = prompt.ask("Flush type? jet engine, mild current, lazy river")
         security_level = prompt.ask("is there security? low, medium, high")
@@ -93,8 +101,18 @@ class Interface
         handicap_accessible = prompt.yes?("Was there handicap access?")
         baby_changing_station = prompt.yes?("Was there a baby changing station?")
         # binding.pry
-        Review.create(cleanliness: cleanliness, flush_factor: flush_factor, security_level: security_level, handicap_accessible: handicap_accessible, baby_changing_station: baby_changing_station, user_id: @user.id, bathroom_id: chosen_bathroom.id)
+        Review.create(cleanliness: cleanliness, flush_factor: flush_factor, security_level: security_level, handicap_accessible: handicap_accessible, baby_changing_station: baby_changing_station, user_id: @user.id, bathroom_id: selected_bathroom.id)
         puts "Thanks for your review #{@user.name}, please come back soon!"
+    end
+
+    def delete_review_helper
+        hood_bathroom = @chosen_hood_id.all_bathrooms
+        selected_bathroom = prompt.select("Please select a bathroom", hood_bathroom)
+
+    end
+
+    def delete_account
+
     end
 
 end

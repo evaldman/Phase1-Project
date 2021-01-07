@@ -34,6 +34,7 @@ upper_east_side = Neighborhood.create(name: "Upper East Side")
 harlem = Neighborhood.create(name: "Harlem")
 
 #bathrooms
+puts "creating bathrooms"
 mcdonalds = Bathroom.create(name: "Mcdonalds", address: "262 Canal st", neighborhood_id: chinatown.id)
 starbucks = Bathroom.create(name: "Starbucks", address: "1491 Lexington ave", neighborhood_id: upper_east_side.id)
 sweetgreen = Bathroom.create(name: "Sweetgreen", address: "781 Broadway", neighborhood_id: midtown.id)
@@ -44,7 +45,7 @@ bryant_park = Bathroom.create(name: "Bryant Park", address: "55 W 40th st", neig
 radio_star_karaoke = Bathroom.create(name: "Radio Star Karaoke", address: "3 W 35th st", neighborhood_id: koreatown.id)
 
 # reviews
-
+puts "creating reviews"
 # = Review.create(cleanliness: , flush_factor: , security_level: , wait_time: , handicap_accessible: , baby_changing_station: , user_id: , bathroom_id: )
 
 review1 = Review.create(cleanliness: 7, flush_factor: "jet engine", security_level: "high", wait_time: 11, handicap_accessible: 1, baby_changing_station: 0, user_id: melissa.id, bathroom_id: mcdonalds.id)

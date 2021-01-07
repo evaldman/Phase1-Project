@@ -14,6 +14,16 @@ class Bathroom < ActiveRecord::Base
   def all_reviews
     Review.all.select{|review| review.bathroom == self}
   end
+  
+  def delete_a_review(bathroom_address)
+    self.all_reviews.each do |review|
+      if review.bathroom.address == bathroom_address
+        review.destroy
+      else
+        puts "Sorry, no review found with that address"
+      end
+    end
+  end
 
   def self.low_security
     Review.all.select{|level| level.security_level == "low"}
