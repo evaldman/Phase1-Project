@@ -68,18 +68,25 @@ class Interface
 
     def bathroom_helper
         system 'clear'  
-        hood_bathroom = @chosen_hood_id.all_bathrooms
-        selected_bathroom = prompt.select("Please select a bathroom", hood_bathroom)
-        # binding.pry
-
+        n_bathroom = @chosen_hood_id.all_bathrooms
+        selected_bathroom = prompt.select("Please select a bathroom", n_bathroom)
         review_q = prompt.select("Would you like to see a review?") do |menu|
             menu.choice "yes", 1
             menu.choice "no", 2
         end
         br_review = Review.all.select{|review| review.bathroom == selected_bathroom}
-       
         if review_q == 1
-            pp br_review
+            # pp br_review
+           c_review = selected_bathroom.chosen_bathroom.each do |array|
+                puts "Bathroom: #{array[0]}"
+                puts "Address: #{array[1]}"
+                puts "Cleanliness: #{array[2]}"
+                puts "Flush Factor: #{array[3]}"
+                puts "Security Level: #{array[4]}"
+                puts "Wait Time: #{array[5]}"
+                puts "Handicap Accessible: #{array[6]}"
+                puts "Baby Changing Station: #{array[7]}"
+            end
         else review_q == 2
             puts "Enjoy your personal time"
         end
@@ -109,6 +116,48 @@ class Interface
         hood_bathroom = @chosen_hood_id.all_bathrooms
         selected_bathroom = prompt.select("Please select a bathroom", hood_bathroom)
 
+    end
+
+    def update_review_helper
+        user_review = @user.user_reviews
+        @selected_review = prompt.select("Select a review", user_review)
+        choices = {cleanliness: 1, flush_Factor: 2, wait_Time: 3, handicap_accessible: 4, baby_changing_station: 5}
+        val = prompt.select("which feature would you like to edit?", choices)
+        if val == 1
+            up_cleanliness = prompt.ask("How clean was this bathroom?").to_i
+            # @selected_review.cleanliness = up_cleanliness
+            @selected_review.update(cleanliness: up_cleanliness)
+            # binding.pry
+            system('clear')
+            what_to_do_menu
+        elsif val == 2
+            up_flush_factor = prompt.ask("Flush type? jet engine, mild current, lazy river")
+            @selected_review.flush_factor = up_flush_factor
+            system('clear')
+            what_to_do_menu
+        elsif val == 3
+            up_security_level = prompt.ask("is there security? low, medium, high")
+            @selected_review.security_level = up_security_level
+            system('clear')
+            what_to_do_menu
+        elsif val == 4
+            up_wait_time = prompt.ask("How many minutes did you wait?").to_i
+            @selected_review.wait_time = up_wait_time
+            system('clear')
+            what_to_do_menu
+        elsif val == 5
+            up_handicap_accessible =  prompt.yes?("Was there handicap access?")
+            @selected_review.handicap_accessible = up_handicap_accessible
+            system('clear')
+            what_to_do_menu
+        elsif val == 6
+            up_baby_changing_station =  prompt.yes?("Was there a baby changing station?")
+            @selected_review.baby_changing_station = up_baby_changing_station
+            system('clear')
+            what_to_do_menu
+        else 
+            what_to_do_menu
+        end
     end
 
     def delete_account

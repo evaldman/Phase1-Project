@@ -14,6 +14,10 @@ class Bathroom < ActiveRecord::Base
   def all_reviews
     Review.all.select{|review| review.bathroom == self}
   end
+
+  def chosen_bathroom
+    chosen_arr = self.all_reviews.map {|review| [review.bathroom.name, review.bathroom.address, review.cleanliness, review.flush_factor, review.security_level, review.wait_time, review.handicap_accessible, review.baby_changing_station]}
+  end
   
   def delete_a_review(bathroom_address)
     self.all_reviews.each do |review|
