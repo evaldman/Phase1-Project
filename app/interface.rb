@@ -106,15 +106,20 @@ class Interface
 
     def review_helper
         system 'clear'
-        # @user.reload
+        #@user.reload
         hood_bathroom = @chosen_hood_id.all_bathrooms
         selected_bathroom = prompt.select("Please select a bathroom", hood_bathroom)
-        cleanliness = prompt.ask("How clean was this bathroom?").to_i
-        flush_factor = prompt.ask("Flush type? jet engine, mild current, lazy river")
-        security_level = prompt.ask("is there security? low, medium, high")
-        wait_time = prompt.ask("How many minutes did you wait?").to_i
-        handicap_accessible = prompt.yes?("Was there handicap access?")
-        baby_changing_station = prompt.yes?("Was there a baby changing station?")
+        # prompt.select("Choose your destiny?", %w(Scorpion Kano Jax))
+        cleanliness = prompt.select("How clean was this bathroom?",%w(1 2 3 4 5 6 7 8 9 10)).to_i
+        flush_factor = prompt.select("How nice was the flush?") do |menu|
+            menu.choice "Jet Engine"
+            menu.choice "Mild Current"
+            menu.choice "Lazy River"
+        end
+        security_level = prompt.select("What is the security level?", %w(High Medium Low))
+        wait_time = prompt.select("How many minutes did you wait?", %w(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20)).to_i
+        handicap_accessible = prompt.yes?("Is it handicap accessible?")
+        baby_changing_station = prompt.yes?("Is there a baby changing station?")
         # binding.pry
         Review.create(cleanliness: cleanliness, flush_factor: flush_factor, security_level: security_level, handicap_accessible: handicap_accessible, baby_changing_station: baby_changing_station, user_id: @user.id, bathroom_id: selected_bathroom.id)
         puts "Thanks for your review #{@user.name}, please come back soon!"
@@ -139,41 +144,45 @@ class Interface
         #update only the selected review#
 
         selected_review = prompt.select("Select a review", user_review.map{|review| review.bathroom.address})
-        choices = {cleanliness: 1, flush_Factor: 2, wait_Time: 3, handicap_accessible: 4, baby_changing_station: 5}
+        choices = {cleanliness: 1, flush_Factor: 2, security_level: 3, wait_Time: 4, handicap_accessible: 5, baby_changing_station: 6}
 
         usr_sel_rev =  user_review.find{|review| review.bathroom.address == selected_review}
         val = prompt.select("which feature would you like to edit?", choices)
         if val == 1
             # binding.pry
             
-            up_cleanliness = prompt.ask("How clean was this bathroom?").to_i
+            up_cleanliness = prompt.select("How clean was this bathroom?",%w(1 2 3 4 5 6 7 8 9 10)).to_i
             # @selected_review.cleanliness = up_cleanliness
             usr_sel_rev.update(cleanliness: up_cleanliness)
             # binding.pry
             system('clear')
             what_to_do_menu
         elsif val == 2
-            up_flush_factor = prompt.ask("Flush type? jet engine, mild current, lazy river")
+            up_flush_factor = prompt.select("How nice was the flush?") do |menu|
+                menu.choice "Jet Engine"
+                menu.choice "Mild Current"
+                menu.choice "Lazy River"
+            end
             usr_sel_rev.update(flush_factor: up_flush_factor)
             system('clear')
             what_to_do_menu
         elsif val == 3
-            up_security_level = prompt.ask("is there security? low, medium, high")
+            up_security_level = prompt.select("What is the security level?", %w(High Medium Low))
             usr_sel_rev.update(security_level: up_security_level)
             system('clear')
             what_to_do_menu
         elsif val == 4
-            up_wait_time = prompt.ask("How many minutes did you wait?").to_i
+            up_wait_time = prompt.select("How many minutes did you wait?", %w(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20)).to_i
             usr_sel_rev.update(wait_time: up_wait_time)
             system('clear')
             what_to_do_menu
         elsif val == 5
-            up_handicap_accessible =  prompt.yes?("Was there handicap access?")
+            up_handicap_accessible =  prompt.yes?("Is it handicap accessible?")
             usr_sel_rev.update(handicap_accessible: up_handicap_accessible)
             system('clear')
             what_to_do_menu
         elsif val == 6
-            up_baby_changing_station =  prompt.yes?("Was there a baby changing station?")
+            up_baby_changing_station =  prompt.yes?("Is there a baby changing station?")
             usr_sel_rev.update(baby_changing_station: up_baby_changing_station)
             system('clear')
             what_to_do_menu
