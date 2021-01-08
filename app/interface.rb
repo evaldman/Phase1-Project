@@ -61,15 +61,51 @@ class Interface
         sleep(1)
         prompt.select("What would you like to do?") do |menu|
             menu.choice "Find a Bathroom", -> { bathroom_helper}
+            menu.choice "Filter Bathroom Options", -> {filter_helper} 
             menu.choice "Leave a Review", -> { review_helper }
             menu.choice "Delete a Review", -> { delete_review_helper }
             menu.choice "Update Review", -> { update_review_helper }
             menu.choice "Delete Account", -> { delete_account }
             menu.choice "Select a Different Neighborhood", -> { neighborhood_helper }
             menu.choice "Exit", -> { exit_helper }
-
-            
         end
+    end
+
+    def filter_helper
+        prompt.select("Which bathroom would you like to see?") do |menu|
+            menu.choice "The cleanest", -> {cleanest_helper}
+            menu.choice "Short wait time", -> {wait_helper}
+            menu.choice "Handicap access", -> {h_helper}
+            menu.choice "baby changing station", -> {b_helper}
+        end
+    end
+
+    def cleanest_helper
+        clean = @chosen_hood_id.cleanest
+         puts "#{clean.bathroom.name}, #{clean.bathroom.address}"
+         sleep(5)
+         what_to_do_menu
+    end
+
+    def wait_helper
+        short = @chosen_hood_id.short_wait
+        puts "#{short.bathroom.name}, #{short.bathroom.address}"
+        sleep(5)
+        what_to_do_menu
+    end
+
+    def h_helper
+       handi = @chosen_hood_id.handicap_access
+       puts "#{handi.bathroom.name}, #{handi.bathroom.address}"
+       sleep(5)
+       what_to_do_menu
+   end
+
+    def b_helper
+        b = @chosen_hood_id.baby_station
+        puts "#{b.bathroom.name}, #{b.bathroom.address}"
+        sleep(5)
+        what_to_do_menu
     end
 
     def bathroom_helper

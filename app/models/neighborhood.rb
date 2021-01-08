@@ -28,11 +28,11 @@ class Neighborhood < ActiveRecord::Base
   end
   
   def short_wait
-    self.reviews.select{|wait| wait.wait_time < 6}
+    self.reviews.sort_by{|wait| wait.wait_time}.first
   end
 
   def cleanest
-    self.reviews.select{|clean| clean.cleanliness > 8}
+    self.reviews.sort_by{|clean| clean.cleanliness}.last
   end
 
   def handicap_access
