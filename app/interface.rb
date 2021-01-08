@@ -135,18 +135,20 @@ class Interface
         # binding.pry
         Review.create(cleanliness: cleanliness, flush_factor: flush_factor, security_level: security_level, handicap_accessible: handicap_accessible, baby_changing_station: baby_changing_station, user_id: @user.id, bathroom_id: selected_bathroom.id)
         puts "Thanks for your review #{@user.name}!".colorize(:blue)
+
+        sleep (4)
         what_to_do_menu
     end
 
     def delete_review_helper
         user_review = @user.user_reviews
         selected_review = prompt.select("Select a review to", user_review.map{|review| review.bathroom.address})
-        if @user.delete_a_review(selected_review)
-            puts "Your review has been removed"
-        else puts "Sorry, there is no review for this address"
-        sleep (1)
-        what_to_do_menu
-        end
+        @user.delete_a_review(selected_review)
+        
+    
+        
+        puts "Your review has been removed"
+        sleep (3)
         what_to_do_menu
     end
 
@@ -225,21 +227,23 @@ class Interface
     end
 
     def h_helper
-       handi = @chosen_hood_id.handicap_access
-       if handi == true
-       puts "#{handi.bathroom.name}, #{handi.bathroom.address}"
-       else puts "Sorry, there are no handicap accessible bathroons in this neighborhood."
-       end
+        # binding.pry
+        handi = @chosen_hood_id.handicap_access
+            handi.each{|review| puts "#{review.bathroom.name}, #{review.bathroom.address}"}.uniq
+        
+    #    puts "#{handi.bathroom.name}, #{handi.bathroom.address}"
+    #     else puts "Sorry, there are no handicap accessible bathroons in this neighborhood."
+    #     end
        sleep(3)
        what_to_do_menu
-   end
+    end
 
     def b_helper
         b = @chosen_hood_id.baby_station
-        if b == true
-        puts "#{b.bathroom.name}, #{b.bathroom.address}"
-        else puts "Sorry, there are no baby changing stations in this neighborhood"
-        end
+            b.each{|review| puts "#{review.bathroom.name}, #{review.bathroom.address}"}.uniq
+        
+        # else puts "Sorry, there are no baby changing stations in this neighborhood"
+        # end
         sleep(3)
         what_to_do_menu
     end
