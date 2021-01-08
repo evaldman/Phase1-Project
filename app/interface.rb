@@ -10,20 +10,25 @@ class Interface
     def welcome
         prompt.select("🚽 Welcome to iToilet 🚽") do |menu|
             menu.choice "Login", -> { login }
-            menu.choice "Sign Up", -> { sign_up }
-            
+            menu.choice "Sign Up", -> { sign_up }    
         end
-
     end
 
     def login
         name = prompt.ask("Enter Name")
+            unless User.find_by(name: name)
+               puts "Sorry name does not exist".colorize(:red)
+               name = prompt.ask("Enter Name")
+                
+            end
+        
         password = prompt.mask("Enter Password")
-        unless User.find_by(name: name, password: password)
-            puts "Sorry name or password does not match".colorize(:red)
-            name = prompt.ask("Enter Name")
-            password = prompt.mask("Enter Password")
+            unless User.find_by(password: password)
+               puts "Sorry password does not match".colorize(:red)
+               password = prompt.mask("Enter Password")
+               
         end
+        
         @user = User.find_by(name: name, password: password)
         puts "Welcome back #{@user.name}, please select your neighborhood".colorize(:yellow)
         sleep(2)
@@ -65,47 +70,9 @@ class Interface
             menu.choice "Leave a Review", -> { review_helper }
             menu.choice "Delete a Review", -> { delete_review_helper }
             menu.choice "Update Review", -> { update_review_helper }
-            menu.choice "Delete Account", -> { delete_account }
             menu.choice "Select a Different Neighborhood", -> { neighborhood_helper }
             menu.choice "Exit", -> { exit_helper }
         end
-    end
-
-    def filter_helper
-        prompt.select("Which bathroom would you like to see?") do |menu|
-            menu.choice "The cleanest", -> {cleanest_helper}
-            menu.choice "Short wait time", -> {wait_helper}
-            menu.choice "Handicap access", -> {h_helper}
-            menu.choice "baby changing station", -> {b_helper}
-        end
-    end
-
-    def cleanest_helper
-        clean = @chosen_hood_id.cleanest
-         puts "#{clean.bathroom.name}, #{clean.bathroom.address}"
-         sleep(5)
-         what_to_do_menu
-    end
-
-    def wait_helper
-        short = @chosen_hood_id.short_wait
-        puts "#{short.bathroom.name}, #{short.bathroom.address}"
-        sleep(5)
-        what_to_do_menu
-    end
-
-    def h_helper
-       handi = @chosen_hood_id.handicap_access
-       puts "#{handi.bathroom.name}, #{handi.bathroom.address}"
-       sleep(5)
-       what_to_do_menu
-   end
-
-    def b_helper
-        b = @chosen_hood_id.baby_station
-        puts "#{b.bathroom.name}, #{b.bathroom.address}"
-        sleep(5)
-        what_to_do_menu
     end
 
     def bathroom_helper
@@ -137,7 +104,16 @@ class Interface
         sleep(2)
         puts "Please come back and leave a review"
         sleep(1)
-        #exit
+        what_to_do_menu
+    end
+
+    def filter_helper
+        prompt.select("Which bathroom would you like to see?") do |menu|
+            menu.choice "The cleanest", -> {cleanest_helper}
+            menu.choice "Short wait time", -> {wait_helper}
+            menu.choice "Handicap access", -> {h_helper}
+            menu.choice "baby changing station", -> {b_helper}
+        end
     end
 
     def review_helper
@@ -148,17 +124,18 @@ class Interface
         # prompt.select("Choose your destiny?", %w(Scorpion Kano Jax))
         cleanliness = prompt.select("How clean was this bathroom?",%w(1 2 3 4 5 6 7 8 9 10)).to_i
         flush_factor = prompt.select("How nice was the flush?") do |menu|
-            menu.choice "Jet Engine"
-            menu.choice "Mild Current"
-            menu.choice "Lazy River"
+            menu.choice "jet engine"
+            menu.choice "mild current"
+            menu.choice "lazy river"
         end
         security_level = prompt.select("What is the security level?", %w(High Medium Low))
-        wait_time = prompt.select("How many minutes did you wait?", %w(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20)).to_i
+        wait_time = prompt.select("How many minutes did you wait?", %w(1 2 3 4 5 6 7 8 9 10 11 12)).to_i
         handicap_accessible = prompt.yes?("Is it handicap accessible?")
         baby_changing_station = prompt.yes?("Is there a baby changing station?")
         # binding.pry
         Review.create(cleanliness: cleanliness, flush_factor: flush_factor, security_level: security_level, handicap_accessible: handicap_accessible, baby_changing_station: baby_changing_station, user_id: @user.id, bathroom_id: selected_bathroom.id)
-        puts "Thanks for your review #{@user.name}, please come back soon!"
+        puts "Thanks for your review #{@user.name}!".colorize(:blue)
+        what_to_do_menu
     end
 
     def delete_review_helper
@@ -170,6 +147,7 @@ class Interface
         sleep (1)
         what_to_do_menu
         end
+        what_to_do_menu
     end
 
     def update_review_helper
@@ -195,9 +173,9 @@ class Interface
             what_to_do_menu
         elsif val == 2
             up_flush_factor = prompt.select("How nice was the flush?") do |menu|
-                menu.choice "Jet Engine"
-                menu.choice "Mild Current"
-                menu.choice "Lazy River"
+                menu.choice "jet engine"
+                menu.choice "mild current"
+                menu.choice "lazy river"
             end
             usr_sel_rev.update(flush_factor: up_flush_factor)
             system('clear')
@@ -208,7 +186,7 @@ class Interface
             system('clear')
             what_to_do_menu
         elsif val == 4
-            up_wait_time = prompt.select("How many minutes did you wait?", %w(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20)).to_i
+            up_wait_time = prompt.select("How many minutes did you wait?", %w(1 2 3 4 5 6 7 8 9 10 11 12)).to_i
             usr_sel_rev.update(wait_time: up_wait_time)
             system('clear')
             what_to_do_menu
@@ -225,10 +203,45 @@ class Interface
         else 
             what_to_do_menu
         end
+        
     end
 
-    def delete_account
+    def cleanest_helper
+        if clean = @chosen_hood_id.cleanest
+        puts "#{clean.bathroom.name}, #{clean.bathroom.address}"
+          else puts "Sorry, there no reviews in this neighborhood."
+          end
+         sleep(3)
+         what_to_do_menu
+    end
 
+    def wait_helper
+        if short = @chosen_hood_id.short_wait
+        puts "#{short.bathroom.name}, #{short.bathroom.address}"
+        else puts "Sorry, there are no reviews in this neighborhood."
+        end
+        sleep(3)
+        what_to_do_menu
+    end
+
+    def h_helper
+       handi = @chosen_hood_id.handicap_access
+       if handi == true
+       puts "#{handi.bathroom.name}, #{handi.bathroom.address}"
+       else puts "Sorry, there are no handicap accessible bathroons in this neighborhood."
+       end
+       sleep(3)
+       what_to_do_menu
+   end
+
+    def b_helper
+        b = @chosen_hood_id.baby_station
+        if b == true
+        puts "#{b.bathroom.name}, #{b.bathroom.address}"
+        else puts "Sorry, there are no baby changing stations in this neighborhood"
+        end
+        sleep(3)
+        what_to_do_menu
     end
     
     def exit_helper

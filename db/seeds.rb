@@ -21,10 +21,14 @@ cameron = User.create(name: "Cameron", password: "cameron")
 kim = User.create(name: "Kim", password: "kim")
 julia = User.create(name: "Julia", password: "julia")
 
+# 30.times do
+#     User.create(name: Faker::Name.first_name, password: 123)
+# end
+
 #neighborhoods
 puts "creating neighborhoods"
 
-soho = Neighborhood.create(name: "SOHO")
+soho = Neighborhood.create(name: "Soho")
 chinatown = Neighborhood.create(name: "Chinatown")
 west_village = Neighborhood.create(name: "West Village")
 les = Neighborhood.create(name: "Lower East Side")
@@ -32,6 +36,18 @@ midtown = Neighborhood.create(name: "Midtown")
 koreatown = Neighborhood.create(name: "Koreatown")
 upper_east_side = Neighborhood.create(name: "Upper East Side")
 harlem = Neighborhood.create(name: "Harlem")
+# tribeca = Neighborhood.create(name: "Tribeca")
+# fidi = Neighborhood.create(name: "Fidi")
+# little_italy = Neighborhood.create(name: "Little Italy")
+# union_square = Neighborhood.create(name: "Union Square")
+# chelsea = Neighborhood.create(name: "Chelsea")
+# lincoln_square = Neighborhood.create(name: "Lincoln Square")
+# bowery = Neighborhood.create(name: "Bowery")
+# inwood = Neighborhood.create(name: "Inwood")
+# hells_kitchen = Neighborhood.create(name: "Hells Kitchen")
+# midtown_east = Neighborhood.create(name: "Midtown East")
+# meatpacking = Neighborhood.create(name: "Meatpacking")
+# upper_west_side = Neighborhood.create(name: "Upper West Side")
 
 #bathrooms
 puts "creating bathrooms"
@@ -44,6 +60,9 @@ sallys = Bathroom.create(name: "Sallys", address: "21 Eldridge st", neighborhood
 bryant_park = Bathroom.create(name: "Bryant Park", address: "55 W 40th st", neighborhood_id: midtown.id)
 radio_star_karaoke = Bathroom.create(name: "Radio Star Karaoke", address: "3 W 35th st", neighborhood_id: koreatown.id)
 
+# 200.times do
+#     Bathroom.create(name: Faker::Restaurant.name, address: Faker::Address.street_address, neighborhood_id: Faker::Number.within(range: 1..20))
+# end
 # reviews
 puts "creating reviews"
 # = Review.create(cleanliness: , flush_factor: , security_level: , wait_time: , handicap_accessible: , baby_changing_station: , user_id: , bathroom_id: )
@@ -58,6 +77,18 @@ review7 = Review.create(cleanliness: 1, flush_factor: "mild current", security_l
 review8 = Review.create(cleanliness: 10, flush_factor: "mild current", security_level: "high", wait_time: 7, handicap_accessible: 0, baby_changing_station: 1, user_id: whitney.id, bathroom_id: starbucks.id)
 review9 = Review.create(cleanliness: 1, flush_factor: "jet engine", security_level: "high", wait_time: 7, handicap_accessible: 0, baby_changing_station: 1, user_id: whitney.id, bathroom_id: law_firm.id)
 review10 = Review.create(cleanliness: 1, flush_factor: "mild current", security_level: "high", wait_time: 7, handicap_accessible: 0, baby_changing_station: 1, user_id: whitney.id, bathroom_id: sallys.id)
+
+# 5000.times do
+#     Review.create(cleanliness: Faker::Number.within(range: 1..10), flush_factor: "mild current", security_level: "low", wait_time: Faker::Number.within(range: 1..12), handicap_accessible: Faker::Number.within(range: 0..1), baby_changing_station: Faker::Number.within(range: 0..1), user_id: Faker::Number.within(range: 1..38), bathroom_id: Faker::Number.within(range: 1..208))
+# end
+
+# 50.times do
+#     Review.create(cleanliness: Faker::Number.within(range: 1..10), flush_factor: "jet engine", security_level: "high", wait_time: Faker::Number.within(range: 1..12), handicap_accessible: Faker::Number.within(range: 0..1), baby_changing_station: Faker::Number.within(range: 0..1), user_id: Faker::Number.within(range: 1..68), bathroom_id: Faker::Number.within(range: 1..68))
+# end
+
+# 50.times do
+#     Review.create(cleanliness: Faker::Number.within(range: 1..10), flush_factor: "lazy river", security_level: "medium", wait_time: Faker::Number.within(range: 1..12), handicap_accessible: Faker::Number.within(range: 0..1), baby_changing_station: Faker::Number.within(range: 0..1), user_id: Faker::Number.within(range: 1..68), bathroom_id: Faker::Number.within(range: 1..68))
+# end
 
 puts "🔥 🔥 🔥 🔥 "
 

@@ -14,9 +14,9 @@ class Neighborhood < ActiveRecord::Base
     Bathroom.all.select{|bathroom| bathroom.neighborhood == self}
   end
 
-  def most_popular_in_neighborhood
-    self.reviews.sort_by{|review| review.bathroom_id}
-  end
+  # def most_popular_in_neighborhood
+  #   self.reviews.sort_by{|review| review.bathroom_id}
+  # end
 
   def low_security
     self.reviews.select{|level| level.security_level == "low"}
