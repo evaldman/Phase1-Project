@@ -51,6 +51,7 @@ harlem = Neighborhood.create(name: "Harlem")
 
 #bathrooms
 puts "creating bathrooms"
+
 mcdonalds = Bathroom.create(name: "Mcdonalds", address: "262 Canal st", neighborhood_id: chinatown.id)
 starbucks = Bathroom.create(name: "Starbucks", address: "1491 Lexington ave", neighborhood_id: upper_east_side.id)
 sweetgreen = Bathroom.create(name: "Sweetgreen", address: "781 Broadway", neighborhood_id: midtown.id)
@@ -59,7 +60,11 @@ equinox = Bathroom.create(name: "Equinox", address: "170 E 156th st", neighborho
 sallys = Bathroom.create(name: "Sallys", address: "21 Eldridge st", neighborhood_id: les.id)
 bryant_park = Bathroom.create(name: "Bryant Park", address: "55 W 40th st", neighborhood_id: midtown.id)
 radio_star_karaoke = Bathroom.create(name: "Radio Star Karaoke", address: "3 W 35th st", neighborhood_id: koreatown.id)
-
+mcdonalds2 = Bathroom.create(name: "Mcdonalds", address: "162 W 46th st", neighborhood_id: midtown.id)
+starbucks2 = Bathroom.create(name: "Starbucks", address: "300 E 43rd st", neighborhood_id: midtown.id)
+starbucks3 = Bathroom.create(name: "Starbucks", address: "750 6th ave", neighborhood_id: midtown.id)
+sweetgreen2 = Bathroom.create(name: "Sweetgreen", address: "74 Prince st", neighborhood_id: soho.id)
+equinox2 = Bathroom.create(name: "Equinox", address: "170 E 156th st", neighborhood_id: west_village.id)
 # 200.times do
 #     Bathroom.create(name: Faker::Restaurant.name, address: Faker::Address.street_address, neighborhood_id: Faker::Number.within(range: 1..20))
 # end
@@ -77,6 +82,9 @@ review7 = Review.create(cleanliness: 1, flush_factor: "mild current", security_l
 review8 = Review.create(cleanliness: 10, flush_factor: "mild current", security_level: "high", wait_time: 7, handicap_accessible: 0, baby_changing_station: 1, user_id: whitney.id, bathroom_id: starbucks.id)
 review9 = Review.create(cleanliness: 1, flush_factor: "jet engine", security_level: "high", wait_time: 7, handicap_accessible: 0, baby_changing_station: 1, user_id: whitney.id, bathroom_id: law_firm.id)
 review10 = Review.create(cleanliness: 1, flush_factor: "mild current", security_level: "high", wait_time: 7, handicap_accessible: 0, baby_changing_station: 1, user_id: whitney.id, bathroom_id: sallys.id)
+review11 = Review.create(cleanliness: 2, flush_factor: "mild current", security_level: "medium", wait_time: 2, handicap_accessible: 1, baby_changing_station: 1, user_id: eric.id, bathroom_id: bryant_park.id)
+review12 = Review.create(cleanliness: 2, flush_factor: "mild current", security_level: "medium", wait_time: 2, handicap_accessible: 1, baby_changing_station: 1, user_id: eric.id, bathroom_id: bryant_park.id)
+review13 = Review.create(cleanliness: 2, flush_factor: "mild current", security_level: "medium", wait_time: 2, handicap_accessible: 1, baby_changing_station: 1, user_id: eric.id, bathroom_id: bryant_park.id)
 
 # 5000.times do
 #     Review.create(cleanliness: Faker::Number.within(range: 1..10), flush_factor: "mild current", security_level: "low", wait_time: Faker::Number.within(range: 1..12), handicap_accessible: Faker::Number.within(range: 0..1), baby_changing_station: Faker::Number.within(range: 0..1), user_id: Faker::Number.within(range: 1..38), bathroom_id: Faker::Number.within(range: 1..208))
