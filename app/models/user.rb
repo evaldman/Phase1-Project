@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   # end
 
   def user_reviews
-    Review.all.select {|bath| bath.user == self}
+    Review.all.select {|review| review.user == self}
   end
 
   def current_chosen_bathrooms

@@ -27,10 +27,11 @@ class Interface
         @user = User.find_by(name: name, password: password)
         puts "Welcome back #{@user.name}, please select your neighborhood".colorize(:yellow)
         sleep(2)
-        hoods = Neighborhood.all
-        @chosen_hood_id = prompt.select("Which neighborhood are you in?", hoods)
+        # hoods = Neighborhood.all
+        # @chosen_hood_id = prompt.select("Which neighborhood are you in?", hoods)
         # puts "Welcome to #{@chosen_hood_id}"
-        what_to_do_menu
+        # what_to_do_menu
+        neighborhood_helper
     end
 
     def sign_up
@@ -44,6 +45,11 @@ class Interface
         @user = User.create(name: name, password: password)
         puts "Welcome #{@user.name}, you won't be disappointed!"
         sleep(2)
+        
+        neighborhood_helper
+    end
+
+    def neighborhood_helper
         hoods = Neighborhood.all
         @chosen_hood_id = prompt.select("Which neighborhood are you in?", hoods)
         what_to_do_menu
@@ -74,10 +80,11 @@ class Interface
             menu.choice "yes", 1
             menu.choice "no", 2
         end
-        br_review = Review.all.select{|review| review.bathroom == selected_bathroom}
+        
         if review_q == 1
-            # pp br_review
+        
            c_review = selected_bathroom.chosen_bathroom.each do |array|
+                puts "_______________________________"
                 puts "Bathroom: #{array[0]}"
                 puts "Address: #{array[1]}"
                 puts "Cleanliness: #{array[2]}"
@@ -86,6 +93,7 @@ class Interface
                 puts "Wait Time: #{array[5]}"
                 puts "Handicap Accessible: #{array[6]}"
                 puts "Baby Changing Station: #{array[7]}"
+                puts "______________________________"
             end
         else review_q == 2
             puts "Enjoy your personal time"
@@ -120,39 +128,49 @@ class Interface
 
     def update_review_helper
         user_review = @user.user_reviews
-        @selected_review = prompt.select("Select a review", user_review)
+        # binding.pry
+
+        #display all user bathrooms#user_review_name = user_review.map{}  ---> user_review[0].bathroom.name
+        #user selects the review#user_bathroom_name from tty::prompt
+        #update only the selected review#
+
+        selected_review = prompt.select("Select a review", user_review.map{|review| review.bathroom.address})
         choices = {cleanliness: 1, flush_Factor: 2, wait_Time: 3, handicap_accessible: 4, baby_changing_station: 5}
+
+        usr_sel_rev =  user_review.find{|review| review.bathroom.address == selected_review}
         val = prompt.select("which feature would you like to edit?", choices)
         if val == 1
+            # binding.pry
+            
             up_cleanliness = prompt.ask("How clean was this bathroom?").to_i
             # @selected_review.cleanliness = up_cleanliness
-            @selected_review.update(cleanliness: up_cleanliness)
+            usr_sel_rev.update(cleanliness: up_cleanliness)
             # binding.pry
             system('clear')
             what_to_do_menu
         elsif val == 2
             up_flush_factor = prompt.ask("Flush type? jet engine, mild current, lazy river")
-            @selected_review.flush_factor = up_flush_factor
+            usr_sel_rev.update(flush_factor: up_flush_factor)
             system('clear')
             what_to_do_menu
         elsif val == 3
             up_security_level = prompt.ask("is there security? low, medium, high")
-            @selected_review.security_level = up_security_level
+            usr_sel_rev.update(security_level: up_security_level)
             system('clear')
             what_to_do_menu
         elsif val == 4
             up_wait_time = prompt.ask("How many minutes did you wait?").to_i
-            @selected_review.wait_time = up_wait_time
+            usr_sel_rev.update(wait_time: up_wait_time)
             system('clear')
             what_to_do_menu
         elsif val == 5
             up_handicap_accessible =  prompt.yes?("Was there handicap access?")
-            @selected_review.handicap_accessible = up_handicap_accessible
+            usr_sel_rev.update(handicap_accessible: up_handicap_accessible)
             system('clear')
             what_to_do_menu
         elsif val == 6
             up_baby_changing_station =  prompt.yes?("Was there a baby changing station?")
-            @selected_review.baby_changing_station = up_baby_changing_station
+            usr_sel_rev.update(baby_changing_station: up_baby_changing_station)
             system('clear')
             what_to_do_menu
         else 
@@ -161,6 +179,12 @@ class Interface
     end
 
     def delete_account
+
+    end
+    
+    def exit_helper
+        puts "🧻🧻🧻🧻🧻🧻🧻🧻"
+        sleep (2)
 
     end
 

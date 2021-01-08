@@ -4,7 +4,7 @@ class Bathroom < ActiveRecord::Base
   belongs_to :neighborhood
 
   def to_s
-    self.address
+    "#{self.name}, #{self.address}"
   end
 
   def self.all_names
