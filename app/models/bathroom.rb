@@ -19,15 +19,15 @@ class Bathroom < ActiveRecord::Base
     chosen_arr = self.all_reviews.map {|review| [review.bathroom.name, review.bathroom.address, review.cleanliness, review.flush_factor, review.security_level, review.wait_time, review.handicap_accessible, review.baby_changing_station]}
   end
   
-  def delete_a_review(bathroom_address)
-    self.all_reviews.each do |review|
-      if review.bathroom.address == bathroom_address
-        review.destroy
-      else
-        puts "Sorry, no review found with that address"
-      end
-    end
-  end
+  # def delete_a_review(bathroom_address)
+  #   self.all_reviews.each do |review|
+  #     if review.bathroom.address == bathroom_address
+  #       review.destroy
+  #     else
+  #       puts "Sorry, no review found with that address"
+  #     end
+  #   end
+  # end
 
   def self.low_security
     Review.all.select{|level| level.security_level == "low"}

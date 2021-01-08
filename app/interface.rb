@@ -121,15 +121,19 @@ class Interface
     end
 
     def delete_review_helper
-        hood_bathroom = @chosen_hood_id.all_bathrooms
-        selected_bathroom = prompt.select("Please select a bathroom", hood_bathroom)
-
+        user_review = @user.user_reviews
+        selected_review = prompt.select("Select a review to", user_review.map{|review| review.bathroom.address})
+        if @user.delete_a_review(selected_review)
+            puts "Your review has been removed"
+        else puts "Sorry, there is no review for this address"
+        sleep (1)
+        what_to_do_menu
+        end
     end
 
     def update_review_helper
         user_review = @user.user_reviews
         # binding.pry
-
         #display all user bathrooms#user_review_name = user_review.map{}  ---> user_review[0].bathroom.name
         #user selects the review#user_bathroom_name from tty::prompt
         #update only the selected review#
@@ -183,7 +187,9 @@ class Interface
     end
     
     def exit_helper
-        puts "🧻🧻🧻🧻🧻🧻🧻🧻"
+        system 'clear'
+        puts "Bye, have a wonderful time!"
+        puts "🧻 🧻 🧻 🧻 🧻 🧻 🧻 🧻"
         sleep (2)
 
     end
