@@ -82,9 +82,17 @@ review7 = Review.create(cleanliness: 1, flush_factor: "mild current", security_l
 review8 = Review.create(cleanliness: 10, flush_factor: "mild current", security_level: "high", wait_time: 7, handicap_accessible: 0, baby_changing_station: 1, user_id: whitney.id, bathroom_id: starbucks.id)
 review9 = Review.create(cleanliness: 1, flush_factor: "jet engine", security_level: "high", wait_time: 7, handicap_accessible: 0, baby_changing_station: 1, user_id: whitney.id, bathroom_id: law_firm.id)
 review10 = Review.create(cleanliness: 1, flush_factor: "mild current", security_level: "high", wait_time: 7, handicap_accessible: 0, baby_changing_station: 1, user_id: whitney.id, bathroom_id: sallys.id)
-review11 = Review.create(cleanliness: 2, flush_factor: "mild current", security_level: "medium", wait_time: 2, handicap_accessible: 1, baby_changing_station: 1, user_id: eric.id, bathroom_id: bryant_park.id)
-review12 = Review.create(cleanliness: 2, flush_factor: "mild current", security_level: "medium", wait_time: 2, handicap_accessible: 1, baby_changing_station: 1, user_id: eric.id, bathroom_id: bryant_park.id)
+review11 = Review.create(cleanliness: 9, flush_factor: "mild current", security_level: "medium", wait_time: 2, handicap_accessible: 1, baby_changing_station: 0, user_id: eric.id, bathroom_id: bryant_park.id)
+review12 = Review.create(cleanliness: 4, flush_factor: "mild current", security_level: "medium", wait_time: 2, handicap_accessible: 1, baby_changing_station: 1, user_id: eric.id, bathroom_id: bryant_park.id)
 review13 = Review.create(cleanliness: 2, flush_factor: "mild current", security_level: "medium", wait_time: 2, handicap_accessible: 1, baby_changing_station: 1, user_id: eric.id, bathroom_id: bryant_park.id)
+
+review14 = Review.create(cleanliness: 1, flush_factor: "jet engine", security_level: "high", wait_time: 2, handicap_accessible: 0, baby_changing_station: 1, user_id: eric.id, bathroom_id: starbucks2.id)
+review15 = Review.create(cleanliness: 1, flush_factor: "jet engine", security_level: "low", wait_time: 4, handicap_accessible: 1, baby_changing_station: 1, user_id: cameron.id, bathroom_id: mcdonalds2.id)
+review16 = Review.create(cleanliness: 4, flush_factor: "jet engine", security_level: "low", wait_time: 9, handicap_accessible: 0, baby_changing_station: 0, user_id: melissa.id, bathroom_id: mcdonalds2.id)
+review17 = Review.create(cleanliness: 2, flush_factor: "lazy river", security_level: "low", wait_time: 3, handicap_accessible: 1, baby_changing_station: 1, user_id: whitney.id, bathroom_id: bryant_park.id)
+review18 = Review.create(cleanliness: 9, flush_factor: "lazy river", security_level: "medium", wait_time: 8, handicap_accessible: 1, baby_changing_station: 0, user_id: julia.id, bathroom_id: west_village.id)
+review19 = Review.create(cleanliness: 9, flush_factor: "jet engine", security_level: "low", wait_time: 2, handicap_accessible: 0, baby_changing_station: 1, user_id: cameron.id, bathroom_id: koreatown.id)
+review20 = Review.create(cleanliness: 3, flush_factor: "jet engine", security_level: "low", wait_time: 4, handicap_accessible: 1, baby_changing_station: 1, user_id: kim.id, bathroom_id: sallys.id)
 
 # 5000.times do
 #     Review.create(cleanliness: Faker::Number.within(range: 1..10), flush_factor: "mild current", security_level: "low", wait_time: Faker::Number.within(range: 1..12), handicap_accessible: Faker::Number.within(range: 0..1), baby_changing_station: Faker::Number.within(range: 0..1), user_id: Faker::Number.within(range: 1..38), bathroom_id: Faker::Number.within(range: 1..208))
